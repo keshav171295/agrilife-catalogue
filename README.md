@@ -41,8 +41,32 @@ Notes
 - The TypeScript `App.tsx` in this commit contains a trimmed PRODUCTS array for brevity; the full dataset is preserved in the repository history. If you want the full typed dataset inline or moved to `src/data/products.ts`, tell me and I'll move it.
 - After pushing this branch to GitHub, the action will run on `main` pushes and publish to GitHub Pages (uses the built-in `GITHUB_TOKEN`).
 
-Vercel preview deployments (optional)
+Vercel deployment (optional)
 
-- A GitHub Actions workflow `.github/workflows/vercel-preview.yml` is included to create Vercel preview deployments on pull requests.
-- To enable: add the following repository secrets: `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`.
-- Vercel will then create a unique preview URL for each PR. Alternatively you can connect the repo in the Vercel dashboard to auto-deploy previews without actions.
+### Production & preview deployments with Vercel
+
+1. **Create a Vercel project**:
+   - Go to [vercel.com](https://vercel.com) and sign in with GitHub.
+   - Click "New Project" and import this repository.
+   - Vercel will auto-detect Vite and use `vercel.json` settings.
+   - Deploy will run automatically on every push to `main`.
+
+2. **Enable preview deployments on pull requests**:
+   - Get your Vercel credentials:
+     - `VERCEL_TOKEN`: from [Vercel Settings → Tokens](https://vercel.com/account/tokens)
+     - `VERCEL_ORG_ID`: from your Vercel org/account settings
+     - `VERCEL_PROJECT_ID`: displayed in Vercel project settings
+   - Add these as GitHub repository secrets (Settings → Secrets and variables → Actions):
+     - `VERCEL_TOKEN`
+     - `VERCEL_ORG_ID`
+     - `VERCEL_PROJECT_ID`
+   - The workflow `.github/workflows/vercel-preview.yml` will now create a preview URL on each PR.
+
+3. **Alternative: Connect in Vercel dashboard** (no secrets needed):
+   - In Vercel project settings, ensure GitHub integration is enabled.
+   - Vercel will auto-create previews for all PRs without needing the Actions workflow.
+
+### GitHub Pages deployment
+
+- Automatic: `.github/workflows/deploy.yml` builds and publishes to GitHub Pages on pushes to `main`.
+- Site URL: `https://keshav171295.github.io/agrilife-catalogue/`
